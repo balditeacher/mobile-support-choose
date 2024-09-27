@@ -1,4 +1,4 @@
--- Create the UI
+
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "NotificationUI"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
