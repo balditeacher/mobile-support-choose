@@ -1,288 +1,78 @@
-if _G.CanOpenCD == 'Y' or _G.CanOpenCD == nil then
-    _G.CanOpenCD = 'Y'
-	end
-
-local TweenService = game:GetService("TweenService")
-local SoundService = game:GetService("SoundService")
-
--- Create the UI Frame
+-- Create the UI
 local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "NotificationUI"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
 local Frame = Instance.new("Frame")
-local Decal = Instance.new("ImageLabel")
-local CloseButton = Instance.new("TextButton")
-local LeftButton = Instance.new("TextButton")
-local RightButton = Instance.new("TextButton")
-local TitleText = Instance.new("TextLabel")  -- Add TitleText
-
-ScreenGui.Name = "CustomUI"
-ScreenGui.Parent = game:GetService("CoreGui")
-
-Frame.Name = "MainFrame"
-Frame.Size = UDim2.new(0.3, 0, 0.4, 0)
-Frame.Position = UDim2.new(0.35, 0, 0.30, 0)
-Frame.BackgroundTransparency = 0.9
+Frame.Size = UDim2.new(0.6, 0, 0.4, 0)
+Frame.Position = UDim2.new(0.2, 0, 0.3, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
 Frame.Parent = ScreenGui
 
--- Add Decal Image to the Frame
-Decal.Name = "BackgroundDecal"
-Decal.Size = UDim2.new(1, 0, 1, 0)
-Decal.Position = UDim2.new(0, 0, 0, 0)
-Decal.Image = "rbxassetid://6317538950"
-Decal.BackgroundTransparency = 1
-Decal.Parent = Frame
-
--- Add rounded corners to the Decal
-local DecalCorner = Instance.new("UICorner")
-DecalCorner.CornerRadius = UDim.new(0, 10)
-DecalCorner.Parent = Decal
-
--- Add rounded corners to the Overlay
-local OverlayCorner = Instance.new("UICorner")
-OverlayCorner.CornerRadius = UDim.new(0, 10)
-OverlayCorner.Parent = Overlay
-
--- Add Title Text to the Frame
-TitleText.Name = "TitleText"
-TitleText.Size = UDim2.new(0.8, 0, 0.15, 0)  -- Width and height adjustments
-TitleText.Position = UDim2.new(0.1, 0, 0.015, 0)  -- Centered horizontally at the top
-TitleText.BackgroundTransparency = 1
-TitleText.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleText.Text = "Choose Drawing Grid Size"
-TitleText.Font = Enum.Font.Cartoon
-TitleText.TextSize = 40
-TitleText.TextWrapped = true
-TitleText.Parent = Frame
-
-
--- Create Image in Bottom-Left of the Frame
-local BottomLeftImage = Instance.new("ImageLabel")
-BottomLeftImage.Name = "BottomLeftImage"
-BottomLeftImage.Size = UDim2.new(0.11, 0, 0.15, 0) -- Adjust the size as needed
-BottomLeftImage.Position = UDim2.new(0.06, 0, 0.825, 0) -- Bottom-left position
-BottomLeftImage.Image = "rbxassetid://13217634061" -- Replace with the image asset ID you want to use
-BottomLeftImage.BackgroundTransparency = 1 -- Make background transparent
-BottomLeftImage.Parent = Frame
-
--- Add rounded corners to the Image (Optional)
-local ImageCorner = Instance.new("UICorner")
-ImageCorner.CornerRadius = UDim.new(0, 10)
-ImageCorner.Parent = BottomLeftImage
-
--- Create Text next to the Bottom-Left Image
-local BottomLeftText = Instance.new("TextLabel")
-BottomLeftText.Name = "BottomLeftText"
-BottomLeftText.Size = UDim2.new(0.25, 0, 0.15, 0) -- Adjust the size as needed
-BottomLeftText.Position = UDim2.new(0.18, 0, 0.825, 0) -- Position it to the right of the image
-BottomLeftText.BackgroundTransparency = 1 -- Make background transparent
-BottomLeftText.Text = "Made By Skibidi Sigma, scriptblox.com/u/ocfi" -- Set the text
-BottomLeftText.TextColor3 = Color3.fromRGB(255, 0, 0) -- Text color
-BottomLeftText.Font = Enum.Font.Cartoon -- Text font
-BottomLeftText.TextSize = 15 -- Adjust text size
-BottomLeftText.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left
-BottomLeftText.Parent = Frame
-
-local TopLeftText = Instance.new("TextLabel")
-TopLeftText.Name = "TopLeftText"
-TopLeftText.Size = UDim2.new(0.25, 0, 0.15, 0) -- Adjust the size as needed
-TopLeftText.Position = UDim2.new(0.30, 0, 0.1, 0) -- Position it to the right of the image
-TopLeftText.BackgroundTransparency = 1 -- Make background transparent
-TopLeftText.Text = "Mobile Supported" -- Set the text
-TopLeftText.TextColor3 = Color3.fromRGB(0, 245, 0) -- Text color
-TopLeftText.Font = Enum.Font.Cartoon -- Text font
-TopLeftText.TextSize = 10 -- Adjust text size
-TopLeftText.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left
-TopLeftText.Parent = Frame
-
-
--- Create the Sound for Hover
-local hoverSound = Instance.new("Sound")
-hoverSound.SoundId = "rbxassetid://656998369"
-hoverSound.Parent = SoundService
-
--- Create the Sound for Click
-local clickSound = Instance.new("Sound")
-clickSound.SoundId = "rbxassetid://12221967"
-clickSound.Parent = SoundService
-
--- Create the Sound for Appearance
-local appearanceSound = Instance.new("Sound")
-appearanceSound.SoundId = "rbxassetid://6228337171"
-appearanceSound.Parent = SoundService
-
--- Function to play sound on hover
-local function playHoverSound()
-    hoverSound:Play()
-end
-
--- Function to play sound on click
-local function playClickSound()
-    clickSound:Play()
-end
-
--- Function to execute when the Left Button is clicked
-local function executeLeftButtonAction()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/balditeacher/7x7-mobile-support/main/7x7!"))()
-end
-
--- Function to execute when the Right Button is clicked
-local function executeRightButtonAction()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/balditeacher/11x11-YY-mobile-support/main/1x1x1x1x1"))()
-end
-
-
--- Function to play sound on appearance
-local function playAppearanceSound()
-    appearanceSound:Play()
-end
-
--- Tweening for smooth appearance animation
-local function showUI()
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-    local goal = {Size = UDim2.new(0.3, 0, 0.4, 0), Position = UDim2.new(0.35, 0, 0.30, 0), BackgroundTransparency = 0.9}
-    local tween = TweenService:Create(Frame, tweenInfo, goal)
-    
-    tween:Play()
-    playAppearanceSound()
-end
-
--- Tweening for smooth closing animation
-local function closeUI()
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-    local goal = {Size = UDim2.new(0, 0, 0, 0), BackgroundTransparency = 1}
-    local tween = TweenService:Create(Frame, tweenInfo, goal)
-    
-    tween:Play()
-    tween.Completed:Connect(function()
-        ScreenGui:Destroy()
-    end)
-end
-
--- Create the Close Button
-CloseButton.Name = "CloseButton"
-CloseButton.Size = UDim2.new(0.1, 0, 0.12, 0)
-CloseButton.Position = UDim2.new(0.9, 0, 0, 0)
-CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-CloseButton.BorderSizePixel = 0
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseButton.Text = "X"
-CloseButton.Font = Enum.Font.Cartoon
-CloseButton.TextSize = 24
-CloseButton.TextWrapped = true
-CloseButton.Parent = Frame
-
--- Apply rounded corners to the Close Button
+-- Rounded corners
 local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 10)
-UICorner.Parent = CloseButton
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = Frame
 
--- Create the Left Button
-LeftButton.Name = "LeftButton"
-LeftButton.Size = UDim2.new(0.4, 0, 0.6, 0)
-LeftButton.Position = UDim2.new(0.068, 0, 0.22, 0)
-LeftButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-LeftButton.BorderSizePixel = 0
-LeftButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-LeftButton.Text = "7x7"
-LeftButton.Font = Enum.Font.Cartoon
-LeftButton.TextSize = 44
-LeftButton.TextWrapped = true
-LeftButton.Parent = Frame
+-- White outline
+local Outline = Instance.new("Frame")
+Outline.Size = UDim2.new(1, 4, 1, 4)
+Outline.Position = UDim2.new(0, -2, 0, -2)
+Outline.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Outline.BorderSizePixel = 0
+Outline.ZIndex = Frame.ZIndex - 1
+Outline.Parent = Frame
 
--- Add an image to the Left Button
-local LeftImage = Instance.new("ImageLabel")
-LeftImage.Size = UDim2.new(1, 0, 1, 0)
-LeftImage.Position = UDim2.new(0, 0, 0, 0)
-LeftImage.Image = "rbxassetid://2492789679"
-LeftImage.BackgroundTransparency = 1
-LeftImage.Parent = LeftButton
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = Outline
 
--- Add rounded corners to the Left Button
-local LeftCorner = Instance.new("UICorner")
-LeftCorner.CornerRadius = UDim.new(0, 10)
-LeftCorner.Parent = LeftButton
+-- Text label
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(1, 0, 0.6, 0)
+TextLabel.Position = UDim2.new(0, 0, 0.2, 0)
+TextLabel.BackgroundTransparency = 1
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 18
+TextLabel.TextWrapped = true
+TextLabel.Text = "This Script Has Moved To A New Loadstring Link\nJoin Our Discord Server: https://discord.gg/jguJVcFN\nIf You Don't Have Discord Here Script:\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/ocfi/Choose-ARt-able-remove/main/wassdaadwasda\"))()"
+TextLabel.Parent = Frame
 
--- Create the Right Button
-RightButton.Name = "RightButton"
-RightButton.Size = UDim2.new(0.4, 0, 0.6, 0)
-RightButton.Position = UDim2.new(0.53, 0, 0.22, 0)
-RightButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-RightButton.BorderSizePixel = 0
-RightButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-RightButton.Text = "11x11"
-RightButton.Font = Enum.Font.Cartoon
-RightButton.TextSize = 44
-RightButton.TextWrapped = true
-RightButton.Parent = Frame
+-- Copy Link Button
+local CopyLinkButton = Instance.new("TextButton")
+CopyLinkButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+CopyLinkButton.Position = UDim2.new(0.1, 0, 0.8, 0)
+CopyLinkButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+CopyLinkButton.BorderSizePixel = 0
+CopyLinkButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CopyLinkButton.TextSize = 16
+CopyLinkButton.Text = "Copy Link"
+CopyLinkButton.Parent = Frame
 
--- Add an image to the Right Button
-local RightImage = Instance.new("ImageLabel")
-RightImage.Size = UDim2.new(1, 0, 1, 0)
-RightImage.Position = UDim2.new(0, 0, 0, 0)
-RightImage.Image = "rbxassetid://120070587853466"
-RightImage.BackgroundTransparency = 1
-RightImage.Parent = RightButton
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = CopyLinkButton
 
--- Add rounded corners to the Right Button
-local RightCorner = Instance.new("UICorner")
-RightCorner.CornerRadius = UDim.new(0, 10)
-RightCorner.Parent = RightButton
-
--- Close Button Functionality
-CloseButton.MouseButton1Click:Connect(function()
-    playClickSound()
-    closeUI()
+CopyLinkButton.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/jguJVcFN")
 end)
 
--- Left Button Functionality
-LeftButton.MouseButton1Click:Connect(function()
-    playClickSound()
-    executeLeftButtonAction() -- Call the function to execute the 7x7 script
-    closeUI()
+-- Copy Script Button
+local CopyScriptButton = Instance.new("TextButton")
+CopyScriptButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+CopyScriptButton.Position = UDim2.new(0.5, 0, 0.8, 0)
+CopyScriptButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+CopyScriptButton.BorderSizePixel = 0
+CopyScriptButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CopyScriptButton.TextSize = 16
+CopyScriptButton.Text = "Copy Script"
+CopyScriptButton.Parent = Frame
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = CopyScriptButton
+
+CopyScriptButton.MouseButton1Click:Connect(function()
+    setclipboard("loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ocfi/Choose-ARt-able-remove/main/wassdaadwasda\"))()")
 end)
-
--- Right Button Functionality
-RightButton.MouseButton1Click:Connect(function()
-    playClickSound()
-    executeRightButtonAction() -- Call the function to execute the 11x11 script
-    closeUI()
-end)
-
-
--- Play sound on button hover
-for _, button in pairs({CloseButton, LeftButton, RightButton}) do
-    button.MouseEnter:Connect(playHoverSound)
-end
-
--- Show UI with smooth appearance
-showUI()
-
--- Draggable UI Logic
-local userInputService = game:GetService("UserInputService")
-local dragging, dragStart, startPos
-
-local function update(input)
-    local delta = input.Position - dragStart
-    Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-end
-
-local function onInputBegan(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = Frame.Position
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
-end
-
-local function onInputChanged(input)
-    if dragging then
-        update(input)
-    end
-end
-
-userInputService.InputBegan:Connect(onInputBegan)
-userInputService.InputChanged:Connect(onInputChanged)
